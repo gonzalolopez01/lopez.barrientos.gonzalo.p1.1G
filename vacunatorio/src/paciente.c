@@ -16,13 +16,16 @@
 #include "provincia.h"
 
 #define TAM_STR 20
-
+/**
+ * menu principal
+ * @return: opcion elegida
+ */
 int menu()
 {
 	int opcion;
-	printf("    *** ABM Pacientes ***\n\n");
+	printf("\n    *** ABM Pacientes ***\n\n");
 	printf("1- Alta Paciente\n");
-	printf("2- Modificar Pacientesn");
+	printf("2- Modificar Pacientes\n");
 	printf("3- Baja Paciente\n");
 	printf("4- Listar Pacientes\n");
 	printf("5- Listar Provincias\n");
@@ -34,6 +37,23 @@ int menu()
 	input_MenuOption(&opcion, "Ingrese la opcion deseada: ","Error, valor invalido. ",1,9,20, "Opcion invalida. ");
 	return opcion;
 }
+/**
+ * menu cuando el arreglo de pacientes esta vacio
+ * @return: opcion elegida
+ */
+int menuVacio()
+{
+	int opcion;
+	printf("\n    *** ABM Pacientes ***\n\n");
+	printf("1- Alta Paciente\n");
+	printf("2- Salir\n");
+	input_MenuOption(&opcion, "Ingrese la opcion deseada: ","Error, valor invalido. ",1,1,2, "Opcion invalida. ");
+	return opcion;
+}
+/**
+ * menu para modificaciones
+ * @return opcion elegida
+ */
 int menuModificacion()
 {
 	int opcion;
@@ -45,6 +65,12 @@ int menuModificacion()
 	scanf("%d", &opcion);
 	return opcion;
 }
+/**
+ * Inicializa el arreglo del tipo ePaciente al poner en 1 el campo isEmpty
+ * @param lista: arreglo de tipo ePaciente
+ * @param tam: tamanio del arreglo
+ * @return -1 error. 0 exito
+ */
 int inicializarPersona(ePaciente lista[], int tam)
 {
 	int returnAux = -1;
@@ -58,6 +84,12 @@ int inicializarPersona(ePaciente lista[], int tam)
 	}
 	return returnAux;
 }
+/**
+ * busca en el arreglo algun campo isEmpty en estado 0
+ * @param lista: arreglo de tipo ePaciente
+ * @param tam: tamanio del arreglo
+ * @return: -1 error o no hay posicion libre
+ */
 int buscarLibre(ePaciente lista[], int tam)
 {
 	int returnAux = -1;
@@ -74,6 +106,15 @@ int buscarLibre(ePaciente lista[], int tam)
 	}
 	return returnAux;
 }
+/**
+ * ingresa un paciente el arreglo del tipo ePaciente
+ * @param lista: arreglo ePaciente
+ * @param tam: tamño del arreglo ePaciente
+ * @param pId: puntero a varible que lleva la cuenta de los numeros de id
+ * @param provincias: arreglo del tipo eProvincia
+ * @param tamProv: tamaño del arreglo
+ * @return -1 error 0 exito de ejecucion
+ */
 int altaPaciente(ePaciente lista[], int tam, int* pId, eProvincia provincias[], int tamProv)
 {
 	int returnAux = -1;
@@ -158,6 +199,12 @@ int ingresoIdProvincia(int* idProvincia, eProvincia provincias[], int tam)
 	return returnAux;
 }
 //----------------------------
+/**
+ * muestra un paciente
+ * @param paciente
+ * @param provincias
+ * @param tam
+ */
 void mostrarPaciente(ePaciente paciente, eProvincia provincias[], int tam)
 {
 	char nombreProvincia[20];
@@ -170,6 +217,14 @@ void mostrarPaciente(ePaciente paciente, eProvincia provincias[], int tam)
 						paciente.idProvincia,
 						nombreProvincia);
 }
+/**
+ * muestra las variable de tipo paciente dentro de un arreglo
+ * @param lista: arreglo del tipo ePaciente
+ * @param tam: tamaño del arreglo ePaciente
+ * @param provincias:  arreglo del tipo eProvincia
+ * @param tamProv: tamaño del arreglo eProvincia
+ * @return 0 error 1 exito en la ejecucion
+ */
 int mostrarPacientes(ePaciente lista[], int tam, eProvincia provincias[], int tamProv)
 {
 	int returnAux = 0;
@@ -196,6 +251,13 @@ int mostrarPacientes(ePaciente lista[], int tam, eProvincia provincias[], int ta
 	}
 	return returnAux;
 }
+/**
+ * busca un id determinado dentro de los campos de un arreglo del tipo ePaciente
+ * @param lista: arreglo ePaciente
+ * @param tam: tamaño del arreglo
+ * @param id: id ingresado y que se va abuscar dentro del arreglo
+ * @return -1 no se encontro el id pasado. > -1 el indice encontrado para el id ingresado
+ */
 int buscarPersonaId(ePaciente lista[], int tam, int id)
 {
 	int indice = -1;
@@ -212,7 +274,14 @@ int buscarPersonaId(ePaciente lista[], int tam, int id)
 	}
 	return indice;
 }
-
+/**
+ * Permite modificar los campos idProvincia y grupo de riesgo
+ * @param pacientes: arreglo del tipo ePaciente
+ * @param tamPac: tamaño del arreglo ePAciente
+ * @param provincias: arrglo del tipo eProvincia
+ * @param tamProv: tamaño del arreglo eParovincia
+ * @return-1 error 0 exito
+ */
 int modificarPaciente(ePaciente pacientes[], int tamPac, eProvincia provincias[], int tamProv)
 {
 	int returnAux = -1;
@@ -224,7 +293,7 @@ int modificarPaciente(ePaciente pacientes[], int tamPac, eProvincia provincias[]
 	if(pacientes!= NULL && tamPac > 0 && provincias != NULL && tamProv >0)
 	{
 		printf("  *** Modificar Persona *** \n\n");
-		input_IntegerNumber(&idAux, "Ingrese el ID del paciente a modificar", "Valor invalido, ingrese nuevamente: ");
+		input_IntegerNumber(&idAux, "Ingrese el ID del paciente a modificar: ", "Valor invalido, ingrese nuevamente: ");
 		indice = buscarPersonaId(pacientes, tamPac, idAux);
 		if(indice == -1)
 		{
@@ -233,13 +302,13 @@ int modificarPaciente(ePaciente pacientes[], int tamPac, eProvincia provincias[]
 		else
 		{
 			mostrarPaciente(pacientes[indice], provincias, tamProv);
-			confirma = input_ClosedQuestion("confirma modificaion?" , "Valor invalido. ");
+			confirma = input_ClosedQuestion("confirma modificaion?[s/n]: " , "Valor invalido. ");
 			if(confirma == 's')
 			{
 				switch(menuModificacion())
 				{
 				case 1://prov
-					mostrarProvincias(provincias, tamProv);
+					//mostrarProvincias(provincias, tamProv);
 					ingresoIdProvincia(&auxidProv, provincias, tamProv);
 					pacientes[indice].idProvincia = auxidProv;
 					break;
@@ -261,6 +330,14 @@ int modificarPaciente(ePaciente pacientes[], int tamPac, eProvincia provincias[]
 	}
 	return returnAux;
 }
+/**
+ * permite hacer una baja logica en el arrglo de tipo ePaciente
+ * @param lista: arreglo del tipo ePaciente
+ * @param tam: tamaño
+ * @param provincias: arreglo del tipo eProvincias
+ * @param tamProv: tamaño
+ * @return-1 error o baja cancelada. 0: baja con exito
+ */
 int bajaPersona(ePaciente lista[], int tam, eProvincia provincias[], int tamProv)
 {
 	int returnAux = -1;
@@ -269,9 +346,9 @@ int bajaPersona(ePaciente lista[], int tam, eProvincia provincias[], int tamProv
 	char confirma;
 	if(lista != NULL && tam >0)
 	{
+		mostrarPacientes(lista, tamProv, provincias, tamProv);
 		printf("  *** Baja Persona *** \n\n");
-		printf("Ingrese id: ");
-		scanf("%d", &id);
+		input_IntegerNumber(&id, "Ingrese id: ", "Valor invalido. ");
 		indice = buscarPersonaId(lista, tam, id);
 		if(indice == -1)
 		{
@@ -279,6 +356,9 @@ int bajaPersona(ePaciente lista[], int tam, eProvincia provincias[], int tamProv
 		}
 		else
 		{
+			printf("-----------------------------------------------------------\n");
+			printf("  Id  Nombre   Edad  GrupoRiesgo idPRov  NombreProv\n");
+			printf("-----------------------------------------------------------\n");
 			mostrarPaciente(lista[indice], provincias, tamProv);
 			confirma = input_ClosedQuestion("Confirma la baja? " , "Valor invalido. ");
 			if(confirma == 's')
@@ -292,5 +372,42 @@ int bajaPersona(ePaciente lista[], int tam, eProvincia provincias[], int tamProv
 			}
 		}
 	}
+	return returnAux;
+}
+/**
+ * ordena el arreglo de tipo ePaciente por provincia y grupo de riesgo
+ * @param lista: arreglo del tipo ePaciente
+ * @param tam: tamaño
+ * @param provincias: arreglo del tipo eProcincias;
+ * @param tamProv tamaño
+ * @return-1 error. 0 exito en la ejecucion
+ */
+int ordenarPacientesProvinciaRiesgo(ePaciente lista[], int tam, eProvincia provincias[], int tamProv)
+{
+	int returnAux = -1;
+	ePaciente auxPaciente;
+	char provinciaI[20];
+	char provinciaJ[20];
+	if(lista != NULL && tam > 0)
+	{
+		for(int i=0; i<tam-1; i++)
+		{
+
+			for(int j=i+1; j<tam; j++)
+			{
+				cargarNombreProvincia(provincias, tamProv, lista[i].idProvincia, provinciaI);
+				cargarNombreProvincia(provincias, tamProv, lista[j].idProvincia, provinciaJ);
+				if((strcmp(provinciaI, provinciaJ) > 0) ||
+					((strcmp(provinciaI, provinciaJ) == 0) && (lista[i].grupoRiesgo > lista[j].grupoRiesgo)))
+				{
+					auxPaciente = lista[i];
+					lista[i] = lista[j];
+					lista[j] = auxPaciente;
+				}
+			}
+		}
+		returnAux = 0;
+	}
+
 	return returnAux;
 }

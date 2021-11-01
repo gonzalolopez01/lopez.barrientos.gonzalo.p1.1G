@@ -32,6 +32,7 @@ char input_ClosedQuestion(char* text, char* errorText);
 char input_sex(char* text, char* errorText);
 int input_DecimalNumberMinMax(float* floatNumber, char* text, char* errorText, float min, float max, char* rangeText);
 void input_AlphaText(char string[], int size, char text[],char errorText[]);
+int input_date(int* dia, int* mes, int* anio, int anioMin, int anioMax);
 
 int stringToProperName(char* string);
 

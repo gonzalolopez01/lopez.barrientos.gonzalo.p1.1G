@@ -13,16 +13,16 @@
 
 void mostrarVacuna(eVacuna vacuna)
 {
-	printf("%6d %-15s %-6f %6d\n",vacuna.id,vacuna.nombre,vacuna.precio,vacuna.idLaboratorio);
+	printf("%6d %-12s %6.2f %6d\n",vacuna.id,vacuna.nombre,vacuna.precio,vacuna.idLaboratorio);
 }
 int mostrarVacunas(eVacuna vacunas[], int tam)
 {
 	int returnAux = -1;
 	if(vacunas != NULL && tam > 0)
 	{
-		printf("              *** Lista de Laboratorios ***\n");
+		printf("              *** Lista de Vacunas ***\n");
 		printf("-----------------------------------------------------------\n");
-		printf("  Id  Nombre  Precio IdLAb\n");
+		printf("  Id    Nombre     Precio   IdLAb\n");
 		printf("-----------------------------------------------------------\n");
 		for(int i=0; i<tam; i++)
 		{

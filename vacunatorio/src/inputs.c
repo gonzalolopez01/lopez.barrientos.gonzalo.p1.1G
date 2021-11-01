@@ -181,11 +181,13 @@ char input_ClosedQuestion(char* text, char* errorText)
 	if(text!=NULL)
 	{
 		printf("%s",text);
+		__fpurge(stdin);
 		scanf("%c",&returnAux);
 		while(!(returnAux == 's' || returnAux == 'n'))
 		{
 			printf("%s",errorText);
 			printf("%s",text);
+			__fpurge(stdin);
 			scanf("%c",&returnAux);
 		}
 	}
@@ -228,7 +230,37 @@ void input_AlphaText(char string[],int size, char text[250],char errorText[250])
 		V_inputText(string, size, errorText);
 	}
 }*/
-
+int input_date(int* dia, int* mes, int* anio, int anioMin, int anioMax)
+{
+	int returnAux = -1;
+	int validation = 0;
+	if(dia != NULL && mes != NULL && anio != NULL)
+	{
+		do
+		{
+			printf("Ingrese fecha [dd/mm/aaaa]: ");
+			__fpurge(stdin);
+			validation = scanf("%d/%d/%d", dia, mes, anio);
+			printf("hola");
+			if(validation == 3)
+			{
+				if(!((*dia >= 1 && *dia <= 31) &&
+					 (*mes >= 1 && *mes <= 12) &&
+					 (*anio >= anioMin && *anio <= anioMax)))
+				{
+					printf("Fecha incorrecta. ");
+					validation = 0;
+				}
+			}
+			else
+			{
+				printf("Valor incorrecto. ");
+			}
+		}while(validation !=3);
+		returnAux = 0;
+	}
+	return returnAux;
+}
 
 int ggets(char* string, int size) //Es el gets arreglado
 {

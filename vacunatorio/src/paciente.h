@@ -20,6 +20,7 @@ typedef struct
 }ePaciente;
 
 int menu();
+int menuVacio();
 int menuModificacion();
 int inicializarPersona(ePaciente lista[], int tam);
 int buscarLibre(ePaciente lista[], int tam);
@@ -33,5 +34,7 @@ int mostrarPacientes(ePaciente lista[], int tam, eProvincia provincias[], int ta
 int buscarPersonaId(ePaciente lista[], int tam, int id);
 int modificarPaciente(ePaciente pacientes[], int tamPac, eProvincia provincias[], int tamProv);
 int bajaPersona(ePaciente lista[], int tam, eProvincia provincias[], int tamProv);
+int ordenarPacientesProvinciaRiesgo(ePaciente lista[], int tam, eProvincia provincias[], int tamProv);
+
 
 #endif /* PACIENTE_H_ */

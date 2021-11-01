@@ -43,10 +43,15 @@ int cargarNombreProvincia(eProvincia provincias[], int tam, int idProvincia , ch
 			if(provincias[i].id == idProvincia)
 			{
 				strcpy(descripcion, provincias[i].nombreProvincia);
+				returnAux = 1;
 				break;
 			}
 		}
-		returnAux = 0;
+		if(returnAux == -1)
+		{
+			returnAux = 0;
+		}
+
 	}
 
 	return returnAux;

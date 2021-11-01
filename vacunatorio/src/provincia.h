@@ -16,6 +16,14 @@ typedef struct
 
 void mostrarProvincia(eProvincia provincia);
 int mostrarProvincias(eProvincia provincias[], int tam);
+/**
+ * busca un id en el arreglo de tipo eProvincia y carga la descripcion correspondiente a ese id
+ * @param provincias: arreglo de tipo eProvincia
+ * @param tam: tamaño del arreglo eProvincia
+ * @param idProvincia: el numero de Id a buscar
+ * @param descripcion: string con la descripcion
+ * @return-1 error, 0 exito al ejecutar, 1 encontro el id buscado
+ */
 int cargarNombreProvincia(eProvincia provincias[], int tam, int idProvincia , char descripcion[]);
 
 #endif /* PROVINCIA_H_ */

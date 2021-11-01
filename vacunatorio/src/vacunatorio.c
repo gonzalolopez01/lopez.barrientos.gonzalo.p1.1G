@@ -116,7 +116,7 @@ int main(void) {
 			case 9:
 				mostrarInoculaciones(inoculaciones, TAM_INO);
 				break;
-			case 10:
+			case 20:
 				printf("Ha seleccionado salir\n");
 				seguir = 'n';
 				break;

@@ -56,3 +56,19 @@ int cargarNombreProvincia(eProvincia provincias[], int tam, int idProvincia , ch
 
 	return returnAux;
 }
+int validarProvincia(int id, eProvincia provincias[], int tam)
+{
+	int returnAux = 0;
+	if(provincias!=NULL && tam>0)
+	{
+		for(int i=0; i<tam; i++)
+		{
+			if(provincias[i].id == id)
+			{
+				returnAux = 1;
+				break;
+			}
+		}
+	}
+	return returnAux;
+}
